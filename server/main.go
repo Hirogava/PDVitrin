@@ -16,7 +16,7 @@ import (
 func main() {
 	services.LoadEnvFile(".env")
 	manager := db.NewDBManager("postgres", os.Getenv("DB_CONNECTION_STRING"))
-	// db.Migrate(manager)
+	db.Migrate(manager)
 
 	log.Println("База данных успешно инициализирована и мигрирована.")
 	defer manager.Close()
