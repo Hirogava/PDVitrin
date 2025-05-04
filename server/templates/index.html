@@ -12,94 +12,113 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
-<header>
-    <div class="container-xxl b-rounded shadow p-1 my-2">
-        <div class="row">
-            <div class="col">
-                <img src="/static/img/logo.png" alt="" class="logo" class="img-fluid">
-            </div>
-            <div class="col my-auto text-center">
-                <a href="" class="">Регистрация проектов</a>
-            </div>
-            <div class="col my-auto text-center">
-                <a href="" class="">Витрина проектов</a>
-            </div>
-            <div class="col my-auto text-center">
-                <a href="" class="">Дизайн-мышление</a>
-            </div>
-            <div class="col my-auto text-center">
-                <a href="" class="">Акселерационная программа</a>
-            </div>
-            <div class="col my-auto text-center">
-                <a href="" class="">Учебно-производственный комплекс</a>
-            </div>
-            <div class="col my-auto text-center">
-                <a href="" class="">Контанты</a>
+    <header>
+        <div class="container-xxl b-rounded shadow p-1 my-2">
+            <div class="row">
+                <div class="col">
+                    <img src="/static/img/logo.png" alt="" class="logo" class="img-fluid">
+                </div>
+                <div class="col my-auto text-center">
+                    <a href="" class="">Регистрация проектов</a>
+                </div>
+                <div class="col my-auto text-center">
+                    <a href="" class="">Витрина проектов</a>
+                </div>
+                <div class="col my-auto text-center">
+                    <a href="" class="">Дизайн-мышление</a>
+                </div>
+                <div class="col my-auto text-center">
+                    <a href="" class="">Акселерационная программа</a>
+                </div>
+                <div class="col my-auto text-center">
+                    <a href="" class="">Учебно-производственный комплекс</a>
+                </div>
+                <div class="col my-auto text-center">
+                    <a href="" class="">Контанты</a>
+                </div>
             </div>
         </div>
-    </div>
-</header>
-<main>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              ...
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+    </header>
+    <main>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  ...
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-    </div>
-    <div class="container">
-        <h3 class="fw-bold col-lg-8 my-4">Проекты Московского политехнического университета в рамках дисциплины «Проектная деятельность» на весенний семестр 2024-2025 учебного года</h3>
-        <div class="input-with-icon mb-3 rounded">
-            <i class="bi bi-search"></i>
-            <input type="text" class="form-control rounded shadow" placeholder="Поиск...">
-        </div>
-
-        <div class="theme">
-            <h5 class="fw-medium col-lg-8 my-4">Тематика</h5>
-            <div id="filters">
-                {{range .Thematic}}
-                    <button class="filter-btn">{{.Name}}</button>
-                {{end}}
+        <div class="container">
+            <h3 class="fw-bold col-lg-8 my-4">Проекты Московского политехнического университета в рамках дисциплины «Проектная деятельность» на весенний семестр 2024-2025 учебного года</h3>
+            <div class="input-with-icon mb-3 rounded">
+                <i class="bi bi-search"></i>
+                <input type="text" class="form-control rounded shadow" placeholder="Поиск...">
             </div>
-        </div>
 
-        <div class="spec">
-            <h5 class="fw-medium col-lg-8 my-4">Специальности</h5>
-            <div id="filters" class="specialites">
-                {{range .Specialization}}
-                    <button class="filter-btn">{{.Name}}</button>
-                {{end}}
+            <div class="theme">
+                <h5 class="fw-medium col-lg-8 my-4">Тематика</h5>
+                <div id="filters">
+                    {{range .Thematic}}
+                    <button class="filter-btn">
+                      {{.Name}}
+                    </button>
+                    {{end}}
+                  </div>
             </div>
-        </div>
-
-        <div class="projects">
-            <h5 class="fw-medium col-lg-8 my-4">Проекты</h5>
-            <div class="row">
-                {{range .Projects}}
-                    <div class="col-md-4 mb-3">
-                        <div class="card shadow-sm h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">{{.Name}}</h5>
-                                <p class="card-text">ID: {{.Id}}</p>
-                                <a href="#" class="btn btn-outline-primary">Подробнее</a>
-                            </div>
-                        </div>
+            <div class="spec">
+                <h5 class="fw-medium col-lg-8 my-4">Тематика</h5>
+                <div id="filters" class="specialites">
+                    {{range .Specialization}}
+                    <button class="filter-btn">{{.Name}}</button>
+                    {{end}}
                     </div>
-                {{end}}
             </div>
+
+            <div class="cards mt-4">
+                <div class="row">
+                    {{range .Projects}}
+                    <div class="col-4 mt-4">
+                        <a href="/project/{{.Id}}" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <div class="card p-3">
+                                <h5>{{.Name}}</h5>
+                                <h3 class="mt-2 primary-color"><i class="bi bi-arrow-right"></i></h3>
+                            </div>
+                        </a>
+                    </div>
+                    {{end}}                    
+                </div>
+            </div>
+
+            <nav aria-label="Page navigation example" >
+                <ul class="pagination justify-content-center mt-3">
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+            </nav>
         </div>
-    </div>
-</main>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+    </main>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    <script src="/static/js/script.js"></script>
 </body>
 </html>

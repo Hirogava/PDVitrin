@@ -1,7 +1,6 @@
 CREATE TABLE projects (
     id serial PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    description text NOT NULL,
     purpose text NOT NULL,
     relevance text NOT NULL,
     result text NOT NULL,
@@ -16,7 +15,7 @@ CREATE TABLE thematic (
 
 CREATE TABLE project_thematics (
     project_id INTEGER REFERENCES projects(id) ON DELETE CASCADE,
-    thematic_id INTEGER REFERENCES thematics(id) ON DELETE CASCADE,
+    thematic_id INTEGER REFERENCES thematic(id) ON DELETE CASCADE,
     PRIMARY KEY (project_id, thematic_id)
 );
 
