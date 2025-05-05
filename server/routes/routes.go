@@ -11,6 +11,7 @@ import (
 
 func Init(r *mux.Router, manager *db.Manager) {
 	Routes(r, manager)
+	ApiRoutes(r, manager)
 }
 
 func Routes(r *mux.Router, manager *db.Manager) {
