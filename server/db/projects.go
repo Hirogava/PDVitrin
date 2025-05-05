@@ -28,3 +28,16 @@ func (manager *Manager) GetProjectsMin(page int, limit int) ([]*models.ProjectMi
 
 	return projects, nil
 }
+
+func (manager *Manager) GetProjectsCount() (int, error) {
+	var count int
+
+	query := `SELECT COUNT(*) FROM projects`
+
+	row := manager.Conn.QueryRow(query)
+	if err := row.Scan(&count); err != nil {
+		return 0, err
+	}
+
+	return count, nil
+}

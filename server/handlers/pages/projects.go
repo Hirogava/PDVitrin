@@ -55,6 +55,18 @@ func Projects(w http.ResponseWriter, r *http.Request, manager *db.Manager) {
 		return
 	}
 
+	count, err := manager.GetProjectsCount()
+	if err != nil {
+		log.Println("Ошибка получения количества проектов: ", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	isLastPage := true
+
+	if pageNumber >= count/20 + 1 {
+		isLastPage = false
+	}
+
 	tmpl := template.Must(template.ParseFiles(
 		"templates/index.html",
 	))
@@ -62,5 +74,9 @@ func Projects(w http.ResponseWriter, r *http.Request, manager *db.Manager) {
 		"Projects" : projectsData,
 		"Thematic" : thematicData,
 		"Specialization" : specializationData,
+		"NextPage" : pageNumber + 1,
+		"PreviousPage" : pageNumber - 1,
+		"IsLastPage" : isLastPage,
+		"IsFirstPage" : !(pageNumber == 1),
 	})
 }
