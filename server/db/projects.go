@@ -4,7 +4,11 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"strings"
+	"time"
 	"vitrina/models"
+
+	"github.com/lib/pq"
 )
 
 // CREATE TABLE projects (
@@ -119,4 +123,57 @@ func (manager *Manager) GetProject(id int) (*models.Project, error) {
 	}
 
 	return &project, nil
+}
+
+func (manager *Manager) GetProjectsByFilters(filters *models.ProjectFilter) ([]*models.ProjectMin, error) {
+	query := `
+		SELECT DISTINCT p.id, p.name, p.created_at
+		FROM projects p
+	`
+	var whereClauses []string
+	var args []interface{}
+	argIdx := 1
+
+	if filters.Specializations != nil && len(filters.Specializations.Id) > 0 {
+		query += `
+			JOIN project_specializations ps ON p.id = ps.project_id
+		`
+		whereClauses = append(whereClauses, fmt.Sprintf("ps.specialization_id = ANY($%d)", argIdx))
+		args = append(args, pq.Array(filters.Specializations.Id))
+		argIdx++
+	}
+
+	if filters.Thematics != nil && len(filters.Thematics.Id) > 0 {
+		query += `
+			JOIN project_thematics pt ON p.id = pt.project_id
+		`
+		whereClauses = append(whereClauses, fmt.Sprintf("pt.thematic_id = ANY($%d)", argIdx))
+		args = append(args, pq.Array(filters.Thematics.Id))
+		argIdx++
+	}
+
+	if len(whereClauses) > 0 {
+		query += " WHERE " + strings.Join(whereClauses, " AND ")
+	}
+
+	query += " ORDER BY p.created_at DESC"
+
+	rows, err := manager.Conn.Query(query, args...)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var projects []*models.ProjectMin
+	for rows.Next() {
+		var project models.ProjectMin
+		var createdAt time.Time
+		if err := rows.Scan(&project.Id, &project.Name, &createdAt); err != nil {
+			return nil, err
+		}
+		projects = append(projects, &project)
+	}
+
+
+	return projects, nil
 }

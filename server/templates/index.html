@@ -81,7 +81,7 @@
                 <h5 class="fw-medium col-lg-8 my-4">Тематика</h5>
                 <div id="filters">
                     {{range .Thematic}}
-                    <button class="filter-btn">
+                    <button class="filter-btn" data-id="{{.Id}}">
                       {{.Name}}
                     </button>
                     {{end}}
@@ -91,7 +91,9 @@
                 <h5 class="fw-medium col-lg-8 my-4">Специализации</h5>
                 <div id="filters" class="specialites">
                     {{range .Specialization}}
-                    <button class="filter-btn">{{.Name}}</button>
+                    <button class="filter-btn" data-id="{{.Id}}">
+                      {{.Name}}
+                    </button>
                     {{end}}
                     </div>
             </div>

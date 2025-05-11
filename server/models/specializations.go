@@ -5,3 +5,7 @@ type Specialization struct {
 	Name  string `json:"name"`
 	Description string `json:"description"`
 }
+
+type FilterSpecialization struct {
+	Id    []int `json:"id"`
+}

@@ -26,4 +26,8 @@ func ApiRoutes(r *mux.Router, manager *db.Manager) {
 	apiPref.HandleFunc("/project/{id}", func(w http.ResponseWriter, r *http.Request) {
 		api.Project(w, r, manager)
 	}).Methods(http.MethodGet)
+
+	apiPref.HandleFunc("/filter-projects", func(w http.ResponseWriter, r *http.Request) {
+		api.FilterProjects(w, r, manager)
+	}).Methods(http.MethodGet)
 }

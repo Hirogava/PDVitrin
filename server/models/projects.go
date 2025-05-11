@@ -14,3 +14,8 @@ type Project struct{
 	Specializations []*Specialization `json:"specializations"`
 	Thematics []*Thematic `json:"thematics"`
 }
+
+type ProjectFilter struct{
+	Thematics *FilterThematic `json:"thematics"`
+	Specializations *FilterSpecialization `json:"specializations"`
+}
