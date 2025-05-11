@@ -40,24 +40,37 @@
         </div>
     </header>
     <main>
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="container">
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
                 <div class="modal-body">
-                  ...
+                  <div class="d-flex">
+                    <h1 class="modal-title fs-3" id="project-name">Modal title</h1>
+                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <p id="theme">Соц-тех</p>
+
+                  <h5>Проблема</h5>
+                  <p id="relevance" class="ps-1">123213132123</p>
+                  
+                  <h5>Цель</h5>
+                  <p id="purpose" class="ps-1">123213132123</p>
+
+                  <h5>Результат</h5>
+                  <p id="result" class="ps-1">123213132123</p>          
+                  
+                  <p>Для работы над проектом требуются студенты следующих направлений:</p>
+                  <ul id="specializations">
+                  </ul>
+
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
+                  <a type="button" href="/" class="btn btn-primary text-white mx-auto">Записаться на проект</a>
                 </div>
               </div>
             </div>
           </div>
-        <div class="container">
             <h3 class="fw-bold col-lg-8 my-4">Проекты Московского политехнического университета в рамках дисциплины «Проектная деятельность» на весенний семестр 2024-2025 учебного года</h3>
             <div class="input-with-icon mb-3 rounded">
                 <i class="bi bi-search"></i>
@@ -75,7 +88,7 @@
                   </div>
             </div>
             <div class="spec">
-                <h5 class="fw-medium col-lg-8 my-4">Тематика</h5>
+                <h5 class="fw-medium col-lg-8 my-4">Специализации</h5>
                 <div id="filters" class="specialites">
                     {{range .Specialization}}
                     <button class="filter-btn">{{.Name}}</button>
@@ -86,10 +99,11 @@
             <div class="cards mt-4">
                 <div class="row">
                     {{range .Projects}}
-                    <div class="col-4 mt-4">
-                        <a href="/project/{{.Id}}" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <div class="col-md-4 mt-4">
+                        <a href="/project/{{.Id}}" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="loadProjectData({{.Id}})">
                             <div class="card p-3">
                                 <h5>{{.Name}}</h5>
+                                <p></p>
                                 <h3 class="mt-2 primary-color"><i class="bi bi-arrow-right"></i></h3>
                             </div>
                         </a>
