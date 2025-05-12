@@ -1,7 +1,78 @@
-document.querySelectorAll('.filter-btn').forEach(button => {
+  const selectedFilters = {
+    specialization: new Set(),
+    theme: new Set(),
+  };
 
+  let debounceTimeout;
+const pagination = document.getElementById('pagination');
+function sendFiltersToAPI() {
+  const jsonData = {
+    specializations: { id: Array.from(selectedFilters.specialization) },
+    thematics: { id: Array.from(selectedFilters.theme) },
+  };
+
+  fetch('/api/filter-projects', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(jsonData),
+  })
+  .then(response => response.json())
+  .then(data => {
+
+    const cardsContainer = document.getElementById('cards');
+    cardsContainer.innerHTML = ''; // Очистить старые карточки
+
+    if (data === null || data.length === 0) {
+      cardsContainer.innerHTML = '<p>Проекты не найдены.</p>';
+      return;
+    }
+
+    data.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'col-md-4 mt-4';
+      card.innerHTML = `
+        <a href="/project/${item.id}" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="loadProjectData(${item.id})">
+          <div class="card p-3">
+            <h5>${item.name}</h5>
+            <p></p>
+            <h3 class="mt-2 primary-color"><i class="bi bi-arrow-right"></i></h3>
+          </div>
+        </a>
+      `;
+      cardsContainer.appendChild(card);
+    });
+  })
+  .catch(error => {
+    console.error('Ошибка при отправке:', error);
+  });
+}
+
+  function debounceSend() {
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(() => {
+      sendFiltersToAPI();
+    }, 500); // Задержка в 500 мс
+  }
+
+  document.querySelectorAll('.filter-btn').forEach(button => {
     button.addEventListener('click', () => {
+      const id = button.dataset.id;
+      const type = button.getAttribute('type'); // "theme" или "specialization"
+
       button.classList.toggle('active');
+
+
+      if (button.classList.contains('active')) {
+        selectedFilters[type].add(parseInt(id, 10));
+        pagination.hidden = true;
+      } else {
+        selectedFilters[type].delete(parseInt(id, 10));
+        if (selectedFilters.specialization.size === 0 && selectedFilters.theme.size === 0) {
+          pagination.hidden = false;
+        }
+      }
+
+      debounceSend(); // Отправить запрос с задержкой
     });
   });
 

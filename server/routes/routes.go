@@ -3,8 +3,8 @@ package routes
 import (
 	"net/http"
 	"vitrina/db"
-	"vitrina/handlers/pages"
 	"vitrina/handlers/api"
+	"vitrina/handlers/pages"
 
 	"github.com/gorilla/mux"
 )
@@ -29,5 +29,5 @@ func ApiRoutes(r *mux.Router, manager *db.Manager) {
 
 	apiPref.HandleFunc("/filter-projects", func(w http.ResponseWriter, r *http.Request) {
 		api.FilterProjects(w, r, manager)
-	}).Methods(http.MethodGet)
+	}).Methods(http.MethodPost)
 }
